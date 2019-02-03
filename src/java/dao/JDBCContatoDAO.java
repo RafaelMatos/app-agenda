@@ -7,7 +7,9 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -50,7 +52,36 @@ public class JDBCContatoDAO implements ContatoDAO{
 
     @Override
     public List<Contato> listarTodos() {
-
+        
+        List<Contato> contatos = new ArrayList<Contato>();
+        
+        String sql = "SELECT * FROM contato;";
+        try {
+            
+            java.sql.Statement stmt = conexao.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                Contato contato = new Contato();
+                
+                int idContato = rs.getInt("idContato");
+                String nome = rs.getString("nome");
+                String telefone = rs.getString("telefone");
+                String celular = rs.getString("celular");
+                String email = rs.getString("email");
+                
+                contato.setId(idContato);
+                contato.setNome(nome);
+                contato.setTelefone(telefone);
+                contato.setCelular(celular);
+                contato.setEmail(email);
+                
+                contatos.add(contato);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        
         return null;
     }
     
