@@ -56,6 +56,7 @@ public class JDBCContatoDAO implements ContatoDAO{
         List<Contato> contatos = new ArrayList<Contato>();
         
         String sql = "SELECT * FROM contato;";
+            
         try {
             
             java.sql.Statement stmt = conexao.createStatement();
@@ -82,7 +83,7 @@ public class JDBCContatoDAO implements ContatoDAO{
         }
         
         
-        return null;
+        return contatos;
     }
     
 }
